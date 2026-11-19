@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Data Mahasiswa</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Data Mahasiswa</h1>
+
+    <% const pesan = { tambah: 'Data berhasil ditambahkan.', ubah: 'Data berhasil diubah.', hapus: 'Data berhasil dihapus.' }; %>
+    <% if (pesan[status]) { %><div class="alert success"><%= pesan[status] %></div><% } %>
+
+    <div class="toolbar">
+      <form method="get" action="/mahasiswa" class="search">
+        <input type="text" name="q" placeholder="Cari NIM atau nama" value="<%= q %>">
+        <button type="submit" class="btn">Cari</button>
+      </form>
+      <a href="/mahasiswa/tambah" class="btn primary">+ Tambah Data</a>
+    </div>
+
+    <table>
+      <thead>
+        <tr><th>No</th><th>NIM</th><th>Nama</th><th>Email</th><th>Jurusan</th><th>Aksi</th></tr>
+      </thead>
+      <tbody>
+        <% if (!rows.length) { %>
+          <tr><td colspan="6" class="empty">Data tidak tersedia.</td></tr>
+        <% } %>
+        <% rows.forEach((m, i) => { %>
+          <tr>
+            <td><%= i + 1 %></td>
+            <td><%= m.nim %></td>
+            <td><%= m.nama %></td>
+            <td><%= m.email %></td>
+            <td><%= m.jurusan %></td>
+            <td class="aksi">
+              <a href="/mahasiswa/<%= m.id %>/edit" class="btn">Ubah</a>
+              <form method="post" action="/mahasiswa/<%= m.id %>/hapus"
+                    onsubmit="return confirm('Hapus data ini?')">
+                <button type="submit" class="btn danger">Hapus</button>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

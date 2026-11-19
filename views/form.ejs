@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= judul %></title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container narrow">
+    <h1><%= judul %></h1>
+
+    <% if (errors.length) { %>
+      <div class="alert error"><ul><% errors.forEach(e => { %><li><%= e %></li><% }) %></ul></div>
+    <% } %>
+
+    <form method="post" action="<%= action %>">
+      <label>NIM
+        <input type="text" name="nim" value="<%= data.nim || '' %>" required>
+      </label>
+      <label>Nama Lengkap
+        <input type="text" name="nama" value="<%= data.nama || '' %>" required>
+      </label>
+      <label>Email
+        <input type="email" name="email" value="<%= data.email || '' %>" required>
+      </label>
+      <label>Jurusan
+        <input type="text" name="jurusan" value="<%= data.jurusan || '' %>" required>
+      </label>
+      <div class="actions">
+        <button type="submit" class="btn primary">Simpan</button>
+        <a href="/mahasiswa" class="btn">Batal</a>
+      </div>
+    </form>
+  </div>
+</body>
+</html>
